@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="description" content="">
+	<meta name="author" content="leon">
+	<title>{{.Desc}}</title>
+	<link href="/css/bootstrap.min.css" rel="stylesheet">
+	<link href="/css/swiper.min.css" rel="stylesheet">
+	<link href="css/styles.css" rel="stylesheet">
+</head>
+<body>
+	{{if .CanModify}}
+	<nav class="navbar navbar-default">
+		<button type="button" class="btn btn-default navbar-btn"
+			data-toggle="modal" data-target="#editPhoto" data-photo-id="0">添加照片</button>
+	</nav>
+	{{end}}
+
+	{{$CanModify := .CanModify}}
+	<div class="swiper-container swiper-container-vertical big-img-box">
+		<div class="swiper-wrapper">
+			{{range .PhotoList}}
+			<div class="swiper-slide">
+				<figure>
+					<img src="{{.Image}}?imageView2/2/h/1024" alt="图片丢失了" />
+					<figcaption class="img-caption">
+						<h4 style="text-align:left">{{.Title}}</h2>
+						<p style="text-align:justify;text-indent:4em">{{.Desc}}</p>
+						<p style="text-align:right"><small>{{.Time}}</small>&nbsp;&nbsp;{{.Address}}</p>
+						{{if $CanModify}}
+						<button class="btn btn-default" type="button"
+							data-toggle="modal" data-target="#editPhoto" data-photo-id={{.Id}}>修改</button>
+						{{end}}
+					</figcaption>
+				</figure>
+			</div>
+			{{end}}
+		</div>
+	</div>
+
+	<div class="modal fade" id="editPhoto" tabindex="-1" role="dialog" aria-labelledby="editPhotoLabel">
+		{{template "edit-photo"}}
+	</div>
+
+	<script src="/js/jquery-3.2.1.min.js"></script>
+	<script src="/js/bootstrap.min.js"></script>
+	<script src="/js/plupload.full.min.js"></script>
+	<script src="/js/qiniu.min.js"></script>
+	<script src="/js/swiper.jquery.min.js"></script>
+	<script src="/laydate/laydate.js"></script>
+	<script src="js/photo.js"></script>
+</body>
+</html>

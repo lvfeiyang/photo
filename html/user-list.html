@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="description" content="">
+	<meta name="author" content="leon">
+	<title>相册用户列表</title>
+	<link href="/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+	<nav class="navbar navbar-default">
+		<button type="button" class="btn btn-default navbar-btn">添加用户</button>
+	</nav>
+	<table class="table table-hover">
+		<thead>
+			<tr>
+				<th>名称</th>
+				<th>后缀</th>
+				<th>描述</th>
+			</tr>
+		</thead>
+		<tbody>
+			{{range .UserList}}
+			<tr id="{{.Id}}">
+				<td ondblclick="showInput({{.Id}}, 1)">{{.Name}}</td>
+				<td ondblclick="showInput({{.Id}}, 2)">{{.Suffix}}</td>
+				<td ondblclick="showInput({{.Id}}, 3)">{{.Desc}}</td>
+			</tr>
+			{{end}}
+		</tbody>
+	</table>
+
+	<script src="/js/jquery-3.2.1.min.js"></script>
+	<script src="/js/bootstrap.min.js"></script>
+	<script src="js/user.js"></script>
+</body>
+</html>
