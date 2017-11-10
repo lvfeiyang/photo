@@ -6,10 +6,10 @@ import (
 )
 
 type User struct {
-	Id bson.ObjectId `bson:"_id,omitempty"`
-	Name string
+	Id     bson.ObjectId `bson:"_id,omitempty"`
+	Name   string
 	Suffix string
-	Desc string
+	Desc   string
 }
 
 const userCName = "user"

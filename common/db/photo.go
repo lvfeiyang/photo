@@ -12,7 +12,7 @@ type Photo struct {
 	Title   string
 	Image   string
 	Desc    string
-	UserId string
+	UserId  string
 }
 
 const photoCName = "photo"

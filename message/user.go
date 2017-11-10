@@ -2,20 +2,20 @@ package message
 
 import (
 	"encoding/json"
-	"github.com/lvfeiyang/proxy/common/session"
 	"github.com/lvfeiyang/photo/common/db"
+	"github.com/lvfeiyang/proxy/common/session"
 	"gopkg.in/mgo.v2/bson"
 )
 
 type UserSaveReq struct {
-	Id string
-	Name string
+	Id     string
+	Name   string
 	Suffix string
-	Desc string
+	Desc   string
 }
 type UserSaveRsp struct {
 	Result bool
-	Id string
+	Id     string
 }
 
 func (req *UserSaveReq) GetName() (string, string) {
@@ -56,7 +56,7 @@ func (req *UserSaveReq) Handle(sess *session.Session) ([]byte, error) {
 		rsp.Id = u.Id.Hex()
 	}
 
-	rsp.Result = true;
+	rsp.Result = true
 	if rspJ, err := rsp.Encode(); err != nil {
 		return nil, err
 	} else {

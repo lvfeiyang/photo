@@ -9,10 +9,10 @@ var MhMap map[string]message.MsgHandleIF
 
 func Init() {
 	MhMap = map[string]message.MsgHandleIF{
-		"qiniu-token-req":  &QiniuTokenReq{},
-		"user-save-req": &UserSaveReq{},
-		"photo-info-req":   &PhotoInfoReq{},
-		"photo-save-req":   &PhotoSaveReq{},
+		"qiniu-token-req": &QiniuTokenReq{},
+		"user-save-req":   &UserSaveReq{},
+		"photo-info-req":  &PhotoInfoReq{},
+		"photo-save-req":  &PhotoSaveReq{},
 	}
 	return
 }

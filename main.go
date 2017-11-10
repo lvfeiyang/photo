@@ -1,12 +1,12 @@
 package main
 
 import (
+	ptDb "github.com/lvfeiyang/photo/common/db"
+	"github.com/lvfeiyang/photo/message"
 	"github.com/lvfeiyang/proxy/common"
 	"github.com/lvfeiyang/proxy/common/config"
 	"github.com/lvfeiyang/proxy/common/db"
 	"github.com/lvfeiyang/proxy/common/flog"
-	"github.com/lvfeiyang/photo/message"
-	ptDb "github.com/lvfeiyang/photo/common/db"
 	"html/template"
 	"net/http"
 	"path/filepath"
@@ -15,7 +15,7 @@ import (
 var htmlPath string
 var pjtCfg config.ProjectConfig
 
-func main()  {
+func main() {
 	flog.Init()
 	config.Init()
 	db.Init()
@@ -61,13 +61,13 @@ func photoListHandler(w http.ResponseWriter, r *http.Request) {
 		flog.LogFile.Println(err)
 	} else {
 		type oneView struct {
-			Id string
-			Name string
+			Id     string
+			Name   string
 			Suffix string
-			Desc string
+			Desc   string
 		}
 		var view struct {
-			UserList []oneView
+			UserList  []oneView
 			CanModify bool
 		}
 		if err := r.ParseForm(); err != nil {
@@ -109,7 +109,7 @@ func photoHandler(w http.ResponseWriter, r *http.Request) {
 		var view struct {
 			PhotoList []oneView
 			CanModify bool
-			Desc string
+			Desc      string
 		}
 		if err := r.ParseForm(); err != nil {
 			flog.LogFile.Println(err)

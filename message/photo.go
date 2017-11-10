@@ -2,9 +2,9 @@ package message
 
 import (
 	"encoding/json"
-	"github.com/lvfeiyang/proxy/common/session"
-	"github.com/lvfeiyang/proxy/common"
 	"github.com/lvfeiyang/photo/common/db"
+	"github.com/lvfeiyang/proxy/common"
+	"github.com/lvfeiyang/proxy/common/session"
 	"gopkg.in/mgo.v2/bson"
 	// "github.com/lvfeiyang/proxy/message"
 )
@@ -49,7 +49,7 @@ type PhotoSaveReq struct {
 	Title   string
 	Image   string
 	Desc    string
-	Suffix string
+	Suffix  string
 }
 type PhotoSaveRsp struct {
 	Result bool
