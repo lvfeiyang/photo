@@ -119,6 +119,10 @@ $(function() {
 		// width: window.innerWidth,
 		height: window.innerHeight,
 		roundLengths: true,
+		// onSlideChangeEnd: function(swiper) {
+		// 	$('.big-img-box #imgDesc'+swiper.activeIndex).css('animation', '');
+		// 	$('.big-img-box #imgDesc'+swiper.activeIndex).css('animation', '1s descShow 2 alternate');
+		// }
 	});
 })
 

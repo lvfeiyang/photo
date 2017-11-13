@@ -29,20 +29,14 @@
 	{{$CanModify := .CanModify}}
 	<div class="swiper-container swiper-container-vertical big-img-box">
 		<div class="swiper-wrapper">
-			{{range .PhotoList}}
+			{{range $i, $_ := .PhotoList}}
 			<div class="swiper-slide">
 				{{if $CanModify}}
 				<button class="btn btn-default" type="button"
 					data-toggle="modal" data-target="#editPhoto" data-photo-id={{.Id}}>修改</button>
 				{{end}}
-				<figure>
-					<img src="{{.Image}}?imageView2/2/h/1024" alt="图片丢失了" />
-					<figcaption class="img-caption">
-						<h4 style="text-align:left" class="hidden">{{.Title}}</h2>
-						<p style="text-align:justify;text-indent:4em">{{.Desc}}</p>
-						<p style="text-align:right" class="hidden"><small>{{.Time}}</small>&nbsp;&nbsp;{{.Address}}</p>
-					</figcaption>
-				</figure>
+				<img src="{{.Image}}?imageView2/2/h/1024" alt="图片丢失了" />
+				<h3 id="imgDesc{{$i}}" class="text-center text-info">{{.Desc}}</h3>
 			</div>
 			{{end}}
 		</div>
