@@ -116,13 +116,19 @@ $(function() {
 	var swiper = new Swiper('.swiper-container', {
 		direction: 'vertical',
 		loop: true,
+		speed: 1000,
+		autoplay: 3000,
+		autoplayDisableOnInteraction: false,
 		// width: window.innerWidth,
 		height: window.innerHeight,
 		roundLengths: true,
-		// onSlideChangeEnd: function(swiper) {
-		// 	$('.big-img-box #imgDesc'+swiper.activeIndex).css('animation', '');
-		// 	$('.big-img-box #imgDesc'+swiper.activeIndex).css('animation', '1s descShow 2 alternate');
-		// }
+		onSlideChangeEnd: function(swiper) {
+			// $('.big-img-box #imgDesc'+swiper.realIndex).css('animation', '1s descShow 2 alternate');
+			var index = swiper.realIndex;
+			$('.big-img-box #imgDesc'+(index+1)).removeClass('text-for-image');
+			$('.big-img-box #imgDesc'+(index-1)).removeClass('text-for-image');
+			$('.big-img-box #imgDesc'+index).addClass('text-for-image');
+		}
 	});
 })
 
