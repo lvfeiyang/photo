@@ -178,3 +178,16 @@ function savePhoto(photoId) {
 		}
 	});
 }
+function musicPlay(isPlay) {
+	var audio = document.getElementById('musicId');
+	if (isPlay && audio.paused) {
+		audio.play();
+		$('#audioPlay .glyphicon-play').removeClass('show').addClass('hidden');
+		$('#audioPlay .glyphicon-pause').removeClass('hidden').addClass('show');
+	}
+	if (!isPlay && !audio.paused) {
+		audio.pause();
+		$('#audioPlay .glyphicon-pause').removeClass('show').addClass('hidden');
+		$('#audioPlay .glyphicon-play').removeClass('hidden').addClass('show');
+	}
+}
