@@ -20,3 +20,30 @@
 	from {text-shadow: 0 0 rgba(49,112,143,1);}
 	to {text-shadow: 0 0 rgba(255,255,255,0), -45px -45px 0 red, -30px -30px 0 orange, -15px -15px 0 yellow, 0 0 0 green, 15px 15px 0 blue, 30px 30px 0 indigo, 45px 45px 0 violet;}
 }
+.photo-cover {
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	background-color: rgba(255,255,255,0);
+	/*background-image: url('http://oz6l8jt3v.bkt.clouddn.com/bg.jpg?imageslim');*/
+	z-index: 2;
+}
+.photo-cover h2 {
+	position: absolute;
+	left: 50%;
+	top: 50%;
+	transform: translate(-50%,-50%);
+}
+.photo-cover p {
+	position: absolute;
+	width: 230px;
+	left: 50%;
+	top: 85%;
+	transform: translate(-50%,-50%);
+}
+.photo-cover button {
+	position: absolute;
+	left: 50%;
+	top: 90%;
+	transform: translate(-50%,-50%);
+}

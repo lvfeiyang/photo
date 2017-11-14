@@ -110,6 +110,7 @@ func photoHandler(w http.ResponseWriter, r *http.Request) {
 			PhotoList []oneView
 			CanModify bool
 			Desc      string
+			Name      string
 		}
 		if err := r.ParseForm(); err != nil {
 			flog.LogFile.Println(err)
@@ -124,6 +125,7 @@ func photoHandler(w http.ResponseWriter, r *http.Request) {
 			flog.LogFile.Println(err)
 		}
 		view.Desc = u.Desc
+		view.Name = u.Name
 		pts, err := ptDb.FindAllPhotos(u.Id.Hex())
 		if err != nil {
 			flog.LogFile.Println(err)

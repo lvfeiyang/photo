@@ -113,7 +113,7 @@ $(function() {
 		}
 	});
 
-	var swiper = new Swiper('.swiper-container', {
+	ptSwiper = new Swiper('.swiper-container', {
 		direction: 'vertical',
 		loop: true,
 		speed: 1000,
@@ -130,6 +130,9 @@ $(function() {
 			$('.big-img-box #imgDesc'+index).addClass('text-for-image');
 		}
 	});
+	ptSwiper.stopAutoplay();
+	$('.big-img-box').addClass('hidden');
+	// document.body.addEventListener('touchstart', musicInBrowserHandler);
 })
 
 function putSave() {
@@ -200,4 +203,15 @@ function musicPlay(isPlay) {
 		$('#audioPlay .glyphicon-pause').removeClass('show').addClass('hidden');
 		$('#audioPlay .glyphicon-play').removeClass('hidden').addClass('show');
 	}
+}
+function musicInBrowserHandler() {
+	musicPlay(true);
+	ptSwiper.startAutoplay();
+	document.body.removeEventListener('touchstart', musicInBrowserHandler);
+}
+function startPhoto() {
+	$('.photo-cover').addClass('hidden');
+	$('.big-img-box').removeClass('hidden');
+	musicPlay(true);
+	ptSwiper.startAutoplay();
 }
