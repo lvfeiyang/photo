@@ -131,7 +131,7 @@ $(function() {
 		}
 	});
 	ptSwiper.stopAutoplay();
-	$('.big-img-box').addClass('hidden');
+	// $('.big-img-box').addClass('hidden');
 	// document.body.addEventListener('touchstart', musicInBrowserHandler);
 })
 

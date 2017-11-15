@@ -12,11 +12,13 @@
 	<link href="css/styles.css" rel="stylesheet">
 </head>
 <body background="http://oz6l8jt3v.bkt.clouddn.com/bg.jpg?imageslim">
+	{{if not .CanModify}}
 	<div class="photo-cover">
 			<h2>{{.Desc}}</h2>
 			<p><small>继续浏览会消耗一定流量，请确保网络顺畅</small></p>
 			<button type="button" class="btn btn-default btn-lg" onclick="startPhoto()">进入</button>
 	</div>
+	{{end}}
 
 	{{if .CanModify}}
 	<nav class="navbar navbar-default">
@@ -25,15 +27,21 @@
 	</nav>
 	{{end}}
 
+	{{if not .CanModify}}
 	<div id="audioPlay">
 		<span class="glyphicon glyphicon-play" aria-hidden="true" onclick="musicPlay(true)"></span>
 		<span class="glyphicon glyphicon-pause hidden" aria-hidden="true" onclick="musicPlay(false)"></span>
 		<audio id="musicId" loop preload="auto" src="http://oz6l8jt3v.bkt.clouddn.com/%E9%9A%BE%E5%BF%B5%E7%9A%84%E7%BB%8F.mp3"></audio>
 	</div>
 	<!-- <audio id="musicid" src="http://oz6l8jt3v.bkt.clouddn.com/%E9%9A%BE%E5%BF%B5%E7%9A%84%E7%BB%8F.mp3" autoplay="autoplay"></audio> -->
+	{{end}}
 
 	{{$CanModify := .CanModify}}
+	{{if .CanModify}}
 	<div class="swiper-container swiper-container-vertical big-img-box">
+	{{else}}
+	<div class="swiper-container swiper-container-vertical big-img-box hidden">
+	{{end}}
 		<div class="swiper-wrapper">
 			{{range $i, $_ := .PhotoList}}
 			<div class="swiper-slide">
