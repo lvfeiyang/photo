@@ -5,8 +5,8 @@ import (
 	"github.com/lvfeiyang/photo/common/db"
 	"github.com/lvfeiyang/proxy/common"
 	"github.com/lvfeiyang/proxy/common/session"
+	"github.com/lvfeiyang/proxy/message"
 	"gopkg.in/mgo.v2/bson"
-	// "github.com/lvfeiyang/proxy/message"
 )
 
 type PhotoInfoReq struct {
@@ -102,6 +102,9 @@ func (req *PhotoSaveReq) Handle(sess *session.Session) ([]byte, error) {
 	} else {
 		pt := &db.Photo{}
 		reqToDb(req, pt)
+		if "" == pt.Image {
+			return message.NormalError(message.ErrParameter)
+		}
 		if err := pt.Save(); err != nil {
 			return nil, err
 		}

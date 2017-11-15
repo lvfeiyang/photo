@@ -188,6 +188,9 @@ function savePhoto(photoId) {
 		success:function(data) {
 			if (data.Result)
 				window.location.reload();
+		},
+		error:function(jqXHR, textStatus, errorThrown) {
+			alert(jqXHR.responseJSON.ErrMsg);
 		}
 	});
 }
