@@ -69,7 +69,7 @@ $(function() {
 				plupload.each(files, function(file) {
 					// 文件添加进队列后，处理相关的事情
 					console.log("add file:", file.name);
-					var preloader = new mOxie.Image();
+					var preloader = new o.Image();
 					preloader.onload = function() {
 						preloader.downsize(300, 300); //压缩下显示 不影响上传
 						var imgsrc = preloader.type=='image/jpeg' ? preloader.getAsDataURL('image/jpeg',80) : preloader.getAsDataURL();
