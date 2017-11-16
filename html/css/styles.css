@@ -2,22 +2,26 @@ body {
 	padding: 0;
 	margin: 0;
 }
+.big-img-box .one-image {
+	/*position: relative;*/
+	width: 100%;
+	position: absolute;
+	top: 50%;
+	transform: translate(0,-50%);
+	-webkit-transform: translate(0,-50%);
+}
 .big-img-box img {
 	width: 100%;
-	position:absolute;
-	left:50%;
-	top:50%;
-	transform:translate(-50%,-50%);
-	-webkit-transform: translate(-50%,-50%);
 }
 .big-img-box .text-center {
 	/*background-color: rgba(255,255,255,0.1);*/
-	position:absolute;
-	left:50%;
-	top:50%;
-	transform:translate(-50%,-50%);
+	position: absolute;
+	left: 50%;
+	bottom: 0;
+	transform: translate(-50%,-50%);
 	-webkit-transform: translate(-50%,-50%);
 	z-index: 1;
+	color: red;
 }
 .text-for-image {
 	animation: 1s descShow 2 alternate;

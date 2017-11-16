@@ -69,7 +69,7 @@ $(function() {
 				plupload.each(files, function(file) {
 					// 文件添加进队列后，处理相关的事情
 					console.log("add file:", file.name);
-					var preloader = new o.Image();
+					var preloader = new mOxie.Image();
 					preloader.onload = function() {
 						preloader.downsize(300, 300); //压缩下显示 不影响上传
 						var imgsrc = preloader.type=='image/jpeg' ? preloader.getAsDataURL('image/jpeg',80) : preloader.getAsDataURL();
@@ -123,11 +123,10 @@ $(function() {
 		height: window.innerHeight,
 		roundLengths: true,
 		onSlideChangeEnd: function(swiper) {
-			// $('.big-img-box #imgDesc'+swiper.realIndex).css('animation', '1s descShow 2 alternate');
 			var index = swiper.realIndex;
-			$('.big-img-box #imgDesc'+(index+1)).removeClass('text-for-image');
-			$('.big-img-box #imgDesc'+(index-1)).removeClass('text-for-image');
-			$('.big-img-box #imgDesc'+index).addClass('text-for-image');
+			// $('.big-img-box #imgDesc'+(index+1)).removeClass('text-for-image');
+			// $('.big-img-box #imgDesc'+(index-1)).removeClass('text-for-image');
+			// $('.big-img-box #imgDesc'+index).addClass('text-for-image');
 		}
 	});
 	ptSwiper.stopAutoplay();

@@ -49,8 +49,10 @@
 				<button class="btn btn-default" type="button"
 					data-toggle="modal" data-target="#editPhoto" data-photo-id={{.Id}}>修改</button>
 				{{end}}
-				<img src="{{.Image}}?imageView2/2/h/1024" alt="图片丢失了" />
-				<h3 id="imgDesc{{$i}}" class="text-center text-info">{{.Desc}}</h3>
+				<div class="one-image">
+					<img src="{{.Image}}?imageView2/2/h/1024" alt="图片丢失了" />
+					<h2 id="imgDesc{{$i}}" class="text-center">{{.Desc}}</h2>
+				</div>
 			</div>
 			{{end}}
 		</div>
