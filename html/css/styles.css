@@ -47,7 +47,7 @@ body {
 	position: absolute;
 	width: 60%;
 	left: 50%;
-	top: 20%;
+	top: 10%;
 	transform: translate(-50%,-50%);
 	-webkit-transform: translate(-50%,-50%);
 	text-align: center;
@@ -72,7 +72,7 @@ body {
 .photo-cover button {
 	position: absolute;
 	left: 50%;
-	top: 90%;
+	top: 94%;
 	transform: translate(-50%,-50%);
 	-webkit-transform: translate(-50%,-50%);
 }
