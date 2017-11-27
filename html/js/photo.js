@@ -169,7 +169,7 @@ function savePhoto(photoId) {
 			}
 			case 'photo-desc': {
 				data.Desc = $('#editPhoto #photo-desc').val();
-				if ('' == data.Desc){
+				if ('' == data.Desc && 0 != photoId){
 					data.Desc = '!Del';
 				}
 				break;
