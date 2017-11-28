@@ -116,3 +116,30 @@ func (req *PhotoSaveReq) Handle(sess *session.Session) ([]byte, error) {
 		return rspJ, nil
 	}
 }
+
+type PhotoDelRepeatReq struct {
+	Id string
+}
+type PhotoDelRepeatRsp struct {
+	Result bool
+}
+
+func (req *PhotoDelRepeatReq) GetName() (string, string) {
+	return "photo-del-repeat-req", "photo-del-repeat-rsp"
+}
+func (req *PhotoDelRepeatReq) Decode(msgData []byte) error {
+	return json.Unmarshal(msgData, req)
+}
+func (rsp *PhotoDelRepeatRsp) Encode() ([]byte, error) {
+	return json.Marshal(rsp)
+}
+func (req *PhotoDelRepeatReq) Handle(sess *session.Session) ([]byte, error) {
+	db.DelRepeatPhoto()
+
+	rsp := &PhotoSaveRsp{true}
+	if rspJ, err := rsp.Encode(); err != nil {
+		return nil, err
+	} else {
+		return rspJ, nil
+	}
+}

@@ -50,3 +50,17 @@ function saveUser(userId, column) {
 		}
 	});
 }
+function delRepeat() {
+	$.ajax({
+		url: '/photo/msg/photo-del-repeat',
+		contentType: 'application/json',
+		data: JSON.stringify({Id:0}),
+		type: 'post',
+		dataType: 'json',
+		success: function(data) {
+			if (data.Result) {
+				alert('del repeat');
+			}
+		}
+	});
+}

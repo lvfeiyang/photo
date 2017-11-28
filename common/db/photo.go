@@ -2,6 +2,7 @@ package db
 
 import (
 	"github.com/lvfeiyang/proxy/common/db"
+	"github.com/lvfeiyang/proxy/common/qiniu"
 	"gopkg.in/mgo.v2/bson"
 )
 
@@ -39,4 +40,31 @@ func FindAllPhotos(uId string) ([]Photo, error) {
 }
 func DelPhotoById(id bson.ObjectId) error {
 	return db.DeleteOne(photoCName, id)
+}
+func DelRepeatPhoto() error {
+	//删除七牛hash重复项
+	bucket := "photo"
+	if files, err := qiniu.DelRepeatFile(bucket); err != nil {
+		return err
+	} else {
+		for _, file := range files {
+			db.DeleteMany(photoCName, bson.M{"image": bucket + "/" + file})
+		}
+	}
+	//删除数据库image重复项
+	m := []bson.M{
+		{"$group": bson.M{"_id": "$image", "count": bson.M{"$sum": 1}}},
+		{"$match": bson.M{"count": bson.M{"$gt": 1}}},
+	}
+	var agg []struct {
+		Image string `bson:"_id"`
+		Count string
+	}
+	if err := db.Aggregate(photoCName, m, &agg); err != nil {
+		return err
+	}
+	for _, v := range agg {
+		db.DeleteMany(photoCName, bson.M{"image": v.Image})
+	}
+	return nil
 }
