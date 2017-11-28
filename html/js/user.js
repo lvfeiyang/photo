@@ -54,7 +54,7 @@ function delRepeat() {
 	$.ajax({
 		url: '/photo/msg/photo-del-repeat',
 		contentType: 'application/json',
-		data: JSON.stringify({Id:0}),
+		data: JSON.stringify({Id:""}),
 		type: 'post',
 		dataType: 'json',
 		success: function(data) {
