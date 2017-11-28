@@ -65,7 +65,7 @@ func DelRepeatPhoto() error {
 	}
 	var pts []Photo
 	for _, v := range agg {
-		err := db.FindMany(photoCName, bson.M{"image": v.Image}, &pts, "")
+		db.FindMany(photoCName, bson.M{"image": v.Image}, &pts, "")
 		for i, pt := range pts {
 			if i > 0 {
 				db.DeleteOne(photoCName, pt.Id)
