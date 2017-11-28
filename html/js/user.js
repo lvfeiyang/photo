@@ -1,5 +1,5 @@
 $(function() {
-	$('.navbar button').bind('click', addOneLine);
+	$('.navbar #addButton').bind('click', addOneLine);
 })
 function addOneLine() {
 	$('table tbody').prepend('<tr id="add-tmp"><td></td><td><input type="text" /></td><td></td></tr>');
