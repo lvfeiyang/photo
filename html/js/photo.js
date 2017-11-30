@@ -232,7 +232,7 @@ function nextPage() {
 		contentType: 'application/json',
 		data: JSON.stringify({Offset: index, Limit: 10, Suffix: suffix}),
 		type: 'post',
-		dataType; 'json',
+		dataType: 'json',
 		success:function(data) {
 			for (var i in data.PhotoList) {
 				var v = data.PhotoList[i];
