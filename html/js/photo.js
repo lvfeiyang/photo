@@ -123,10 +123,13 @@ $(function() {
 		height: window.innerHeight,
 		roundLengths: true,
 		onSlideChangeEnd: function(swiper) {
-			var index = swiper.realIndex;
-			// $('.big-img-box #imgDesc'+(index+1)).removeClass('text-for-image');
-			// $('.big-img-box #imgDesc'+(index-1)).removeClass('text-for-image');
-			// $('.big-img-box #imgDesc'+index).addClass('text-for-image');
+			/*var index = swiper.realIndex;
+			$('.big-img-box #imgDesc'+(index+1)).removeClass('text-for-image');
+			$('.big-img-box #imgDesc'+(index-1)).removeClass('text-for-image');
+			$('.big-img-box #imgDesc'+index).addClass('text-for-image');*/
+			if (ptSwiper.progress >= 0.7) {
+				nextPage();
+			}
 		}
 	});
 	ptSwiper.stopAutoplay();
@@ -228,8 +231,13 @@ function nextPage() {
 		type: 'post',
 		dataType; 'json',
 		success:function(data) {
+			var index = ptSwiper.slides.length
 			for (var i in data.PhotoList) {
-
+				var v = data.PhotoList[i];
+				ptSwiper.appendSlide('<div class="swiper-slide"><div class="one-image"><img src="'+
+					v.Image+'?imageView2/2/h/1024" alt="图片丢失了" /><h2 id="imgDesc'+
+					index+'" class="text-center">'+v.Desc+'</h2></div></div>');
+				index++;
 			}
 		}
 	});
