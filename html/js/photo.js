@@ -224,14 +224,16 @@ function startPhoto() {
 	ptSwiper.startAutoplay();
 }
 function nextPage() {
+	var index = ptSwiper.slides.length;
+	var regRet = window.location.search.match(/suffix=([^&]+)/);
+	var suffix = regRet[1];
 	$.ajax({
 		url: '/photo/msg/photo-page',
 		contentType: 'application/json',
-		data: JSON.stringify(data),
+		data: JSON.stringify({Offset: index, Limit: 10, Suffix: suffix}),
 		type: 'post',
 		dataType; 'json',
 		success:function(data) {
-			var index = ptSwiper.slides.length;
 			for (var i in data.PhotoList) {
 				var v = data.PhotoList[i];
 				ptSwiper.appendSlide('<div class="swiper-slide"><div class="one-image"><img src="'+
