@@ -34,7 +34,7 @@ func (u *User) UpdateById() error {
 }
 func FindAllUsers() ([]User, error) {
 	var us []User
-	err := db.FindMany(userCName, bson.M{}, &us, "")
+	err := db.FindMany(userCName, bson.M{}, &us, db.Option{})
 	return us, err
 }
 func DelUserById(id bson.ObjectId) error {

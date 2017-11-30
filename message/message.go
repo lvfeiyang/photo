@@ -13,6 +13,7 @@ func Init() {
 		"user-save-req":        &UserSaveReq{},
 		"photo-info-req":       &PhotoInfoReq{},
 		"photo-save-req":       &PhotoSaveReq{},
+		"photo-page-req":       &PhotoPageReq{},
 		"photo-del-repeat-req": &PhotoDelRepeatReq{},
 	}
 	return

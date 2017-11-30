@@ -115,7 +115,7 @@ $(function() {
 
 	ptSwiper = new Swiper('.swiper-container', {
 		direction: 'vertical',
-		loop: true,
+		// loop: true,
 		speed: 1000,
 		autoplay: 3000,
 		autoplayDisableOnInteraction: false,
@@ -219,4 +219,18 @@ function startPhoto() {
 	$('.big-img-box').removeClass('hidden');
 	musicPlay(true);
 	ptSwiper.startAutoplay();
+}
+function nextPage() {
+	$.ajax({
+		url: '/photo/msg/photo-page',
+		contentType: 'application/json',
+		data: JSON.stringify(data),
+		type: 'post',
+		dataType; 'json',
+		success:function(data) {
+			for (var i in data.PhotoList) {
+
+			}
+		}
+	});
 }

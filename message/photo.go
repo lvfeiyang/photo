@@ -117,6 +117,49 @@ func (req *PhotoSaveReq) Handle(sess *session.Session) ([]byte, error) {
 	}
 }
 
+type PhotoPageReq struct {
+	Offset int
+	Limit  int
+	Suffix string
+}
+type PhotoPageRsp struct {
+	PhotoList []oneView
+}
+type oneView struct {
+	Id    string
+	Image string
+	Desc  string
+}
+
+func (req *PhotoPageReq) GetName() (string, string) {
+	return "photo-page-req", "photo-page-rsp"
+}
+func (req *PhotoPageReq) Decode(msgData []byte) error {
+	return json.Unmarshal(msgData, req)
+}
+func (rsp *PhotoPageRsp) Encode() ([]byte, error) {
+	return json.Marshal(rsp)
+}
+func (req *PhotoPageReq) Handle(sess *session.Session) ([]byte, error) {
+	u := &db.User{}
+	if err := u.GetBySuffix(req.Suffix); err != nil {
+		return message.NormalError(message.ErrNoUser)
+	}
+	pts, err := db.FindAllPhotos(u.Id.Hex(), req.Offset, req.Limit)
+	if err != nil {
+		return nil, err
+	}
+	rsp := &PhotoPageRsp{}
+	for _, pt := range pts {
+		rsp.PhotoList = append(rsp.PhotoList, oneView{pt.Id.Hex(), common.ImgUrlAddQn(pt.Image), pt.Desc})
+	}
+	if rspJ, err := rsp.Encode(); err != nil {
+		return nil, err
+	} else {
+		return rspJ, nil
+	}
+}
+
 type PhotoDelRepeatReq struct {
 	Id string
 }

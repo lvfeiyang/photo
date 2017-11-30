@@ -126,7 +126,7 @@ func photoHandler(w http.ResponseWriter, r *http.Request) {
 		}
 		view.Desc = u.Desc
 		view.Name = u.Name
-		pts, err := ptDb.FindAllPhotos(u.Id.Hex())
+		pts, err := ptDb.FindAllPhotos(u.Id.Hex(), 0, 10)
 		if err != nil {
 			flog.LogFile.Println(err)
 		}

@@ -33,9 +33,9 @@ func (pt *Photo) UpdateById() error {
 		return db.UpdateOne(photoCName, pt.Id, bson.M{"$set": ud})
 	}
 }
-func FindAllPhotos(uId string) ([]Photo, error) {
+func FindAllPhotos(uId string, offset, limit int) ([]Photo, error) {
 	var pts []Photo
-	err := db.FindMany(photoCName, bson.M{"userid": uId}, &pts, "time")
+	err := db.FindMany(photoCName, bson.M{"userid": uId}, &pts, db.Option{"time", offset, limit})
 	return pts, err
 }
 func DelPhotoById(id bson.ObjectId) error {
@@ -65,7 +65,7 @@ func DelRepeatPhoto() error {
 	}
 	var pts []Photo
 	for _, v := range agg {
-		db.FindMany(photoCName, bson.M{"image": v.Image}, &pts, "")
+		db.FindMany(photoCName, bson.M{"image": v.Image}, &pts, db.Option{})
 		for i, pt := range pts {
 			if i > 0 {
 				db.DeleteOne(photoCName, pt.Id)
