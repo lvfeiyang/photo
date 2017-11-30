@@ -127,7 +127,7 @@ $(function() {
 			$('.big-img-box #imgDesc'+(index+1)).removeClass('text-for-image');
 			$('.big-img-box #imgDesc'+(index-1)).removeClass('text-for-image');
 			$('.big-img-box #imgDesc'+index).addClass('text-for-image');*/
-			if (ptSwiper.progress >= 0.7) {
+			if (swiper.progress >= 0.7) {
 				nextPage();
 			}
 		}
