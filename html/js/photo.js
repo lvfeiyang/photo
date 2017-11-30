@@ -117,24 +117,31 @@ $(function() {
 		direction: 'vertical',
 		// loop: true,
 		speed: 1000,
-		autoplay: 3000,
-		autoplayDisableOnInteraction: false,
+		autoplay: {
+			delay: 3000,
+			stopOnLastSlide: true,
+			disableOnInteraction: false,
+		},
 		// width: window.innerWidth,
 		height: window.innerHeight,
 		roundLengths: true,
-		onSlideChangeEnd: function(swiper) {
-			/*var index = swiper.realIndex;
-			$('.big-img-box #imgDesc'+(index+1)).removeClass('text-for-image');
-			$('.big-img-box #imgDesc'+(index-1)).removeClass('text-for-image');
-			$('.big-img-box #imgDesc'+index).addClass('text-for-image');*/
-			if (swiper.progress >= 0.7) {
-				nextPage();
+		on: {
+			slideChangeTransitionEnd: function() {
+				/*var index = swiper.realIndex;
+				$('.big-img-box #imgDesc'+(index+1)).removeClass('text-for-image');
+				$('.big-img-box #imgDesc'+(index-1)).removeClass('text-for-image');
+				$('.big-img-box #imgDesc'+index).addClass('text-for-image');*/
+				this.updateProgress();
+				if (this.progress >= 0.7 && addingFlag == false) {
+					nextPage();
+				}
 			}
 		}
 	});
-	ptSwiper.stopAutoplay();
+	ptSwiper.autoplay.stop();
 	// $('.big-img-box').addClass('hidden');
 	// document.body.addEventListener('touchstart', musicInBrowserHandler);
+	addingFlag = false;
 })
 
 function putSave() {
@@ -214,16 +221,17 @@ function musicPlay(isPlay) {
 }
 function musicInBrowserHandler() {
 	musicPlay(true);
-	ptSwiper.startAutoplay();
+	ptSwiper.autoplay.start();
 	document.body.removeEventListener('touchstart', musicInBrowserHandler);
 }
 function startPhoto() {
 	$('.photo-cover').addClass('hidden');
 	$('.big-img-box').removeClass('hidden');
 	musicPlay(true);
-	ptSwiper.startAutoplay();
+	ptSwiper.autoplay.start();
 }
 function nextPage() {
+	addingFlag = true;
 	var index = ptSwiper.slides.length;
 	var regRet = window.location.search.match(/suffix=([^&]+)/);
 	var suffix = regRet[1];
@@ -241,6 +249,7 @@ function nextPage() {
 					index+'" class="text-center">'+v.Desc+'</h2></div></div>');
 				index++;
 			}
+			addingFlag = false;
 		}
 	});
 }
