@@ -231,7 +231,7 @@ function nextPage() {
 		type: 'post',
 		dataType; 'json',
 		success:function(data) {
-			var index = ptSwiper.slides.length
+			var index = ptSwiper.slides.length;
 			for (var i in data.PhotoList) {
 				var v = data.PhotoList[i];
 				ptSwiper.appendSlide('<div class="swiper-slide"><div class="one-image"><img src="'+
