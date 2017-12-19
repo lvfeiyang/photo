@@ -10,6 +10,8 @@ type User struct {
 	Name   string
 	Suffix string
 	Desc   string
+	Cover  string
+	Music  string
 }
 
 const userCName = "user"

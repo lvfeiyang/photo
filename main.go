@@ -111,6 +111,8 @@ func photoHandler(w http.ResponseWriter, r *http.Request) {
 			CanModify bool
 			Desc      string
 			Name      string
+			Music     string
+			Cover     string
 		}
 		if err := r.ParseForm(); err != nil {
 			flog.LogFile.Println(err)
@@ -126,6 +128,8 @@ func photoHandler(w http.ResponseWriter, r *http.Request) {
 		}
 		view.Desc = u.Desc
 		view.Name = u.Name
+		view.Music = common.ImgUrlAddQn(u.Music)
+		view.Cover = common.ImgUrlAddQn(u.Cover)
 		pts, err := ptDb.FindAllPhotos(u.Id.Hex(), 0, 10)
 		if err != nil {
 			flog.LogFile.Println(err)
