@@ -237,7 +237,7 @@ function nextPage() {
 	var suffix = regRet[1];
 	var user = "";
 	regRet = window.location.search.match(/user=([^&]+)/);
-	if (!regRet) {
+	if (null != regRet) {
 		user = regRet[1];
 	}
 	$.ajax({
