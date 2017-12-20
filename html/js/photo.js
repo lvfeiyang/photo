@@ -235,6 +235,8 @@ function nextPage() {
 	var index = ptSwiper.slides.length;
 	var regRet = window.location.search.match(/suffix=([^&]+)/);
 	var suffix = regRet[1];
+	regRet = window.location.search.match(/user=([^&]+)/);
+	var user = regRet[1];
 	$.ajax({
 		url: '/photo/msg/photo-page',
 		contentType: 'application/json',
@@ -244,9 +246,15 @@ function nextPage() {
 		success:function(data) {
 			for (var i in data.PhotoList) {
 				var v = data.PhotoList[i];
-				ptSwiper.appendSlide('<div class="swiper-slide"><div class="one-image"><img src="'+
+				var addHtml = '<div class="swiper-slide">';
+				if ("admin" == user) {
+					addHtml += '<button class="btn btn-default" type="button" '+
+						'data-toggle="modal" data-target="#editPhoto" data-photo-id='+v.Id+'>修改</button>';
+				}
+				addHtml += '<div class="one-image"><img src="'+
 					v.Image+'?imageView2/2/h/1024" alt="图片丢失了" /><h2 id="imgDesc'+
-					index+'" class="text-center">'+v.Desc+'</h2></div></div>');
+					index+'" class="text-center">'+v.Desc+'</h2></div></div>';
+				ptSwiper.appendSlide(addHtml);
 				index++;
 			}
 			addingFlag = false;
