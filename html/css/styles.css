@@ -46,7 +46,7 @@ body {
 }
 .photo-cover h2 {
 	position: absolute;
-	width: 60%;
+	width: 70%;
 	left: 50%;
 	top: 10%;
 	transform: translate(-50%,-50%);
