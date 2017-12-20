@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="description" content="">
+	<meta name="author" content="leon">
+	<title>{{.Name}}</title>
+	<link href="/css/bootstrap.min.css" rel="stylesheet">
+	<link href="css/table.css" rel="stylesheet">
+</head>
+<body>
+	{{if .CanModify}}
+	<nav class="navbar navbar-default">
+		<button type="button" class="btn btn-default navbar-btn"
+			data-toggle="modal" data-target="#editPhoto" data-photo-id="0">添加照片</button>
+		<!-- <span id="dom-height"></span>;<span id="win-height"></span>;<span id="scroll-top"></span> -->
+	</nav>
+	{{end}}
+	<span id="image-offset" class="hidden">0</span>
+	<table id="image-table" class="table">
+	</table>
+
+	<div class="modal fade" id="editPhoto" tabindex="-1" role="dialog" aria-labelledby="editPhotoLabel">
+		{{template "edit-photo"}}
+	</div>
+
+	<script src="/js/jquery-3.2.1.min.js"></script>
+	<script src="/js/bootstrap.min.js"></script>
+	<script src="/js/moxie.min.js"></script>
+	<script src="/js/plupload.full.min.js"></script>
+	<script src="/js/o.js"></script>
+	<script src="/js/qiniu.min.js"></script>
+	<script src="js/common.js"></script>
+	<script src="js/photo-list.js"></script>
+</body>
+</html>

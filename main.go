@@ -50,6 +50,7 @@ func main() {
 
 	http.HandleFunc("/photo/list", photoListHandler)
 	http.HandleFunc("/photo/detail", photoHandler)
+	http.HandleFunc("/photo/preview", photoPreviewHandler)
 	flog.LogFile.Fatal(http.ListenAndServe(httpAddr, nil))
 }
 func photoListHandler(w http.ResponseWriter, r *http.Request) {
@@ -137,6 +138,37 @@ func photoHandler(w http.ResponseWriter, r *http.Request) {
 		for _, v := range pts {
 			view.PhotoList = append(view.PhotoList, oneView{v.Id.Hex(), v.Time, v.Address, v.Title, common.ImgUrlAddQn(v.Image), v.Desc})
 		}
+		if err := t.Execute(w, view); err != nil {
+			flog.LogFile.Println(err)
+			http.Error(w, err.Error(), http.StatusInternalServerError)
+		}
+	}
+}
+func photoPreviewHandler(w http.ResponseWriter, r *http.Request) {
+	paths := []string{
+		filepath.Join(htmlPath, "photo", "html", "photo-list.html"),
+		filepath.Join(htmlPath, "photo", "html", "modal", "edit-photo.tmpl"),
+	}
+	if t, err := template.ParseFiles(paths...); err != nil {
+		flog.LogFile.Println(err)
+	} else {
+		var view struct {
+			CanModify bool
+			Name      string
+		}
+		if err := r.ParseForm(); err != nil {
+			flog.LogFile.Println(err)
+		}
+		user := r.Form.Get("user")
+		if "admin" == user {
+			view.CanModify = true
+		}
+		suff := r.Form.Get("suffix")
+		u := &ptDb.User{}
+		if err := u.GetBySuffix(suff); err != nil {
+			flog.LogFile.Println(err)
+		}
+		view.Name = u.Name
 		if err := t.Execute(w, view); err != nil {
 			flog.LogFile.Println(err)
 			http.Error(w, err.Error(), http.StatusInternalServerError)
