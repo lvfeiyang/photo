@@ -235,8 +235,11 @@ function nextPage() {
 	var index = ptSwiper.slides.length;
 	var regRet = window.location.search.match(/suffix=([^&]+)/);
 	var suffix = regRet[1];
+	var user = "";
 	regRet = window.location.search.match(/user=([^&]+)/);
-	var user = regRet[1];
+	if (!regRet) {
+		user = regRet[1];
+	}
 	$.ajax({
 		url: '/photo/msg/photo-page',
 		contentType: 'application/json',
