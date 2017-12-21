@@ -99,7 +99,7 @@ function getZoomage() {
 	return new Zoomage({
 		container: document.getElementById('zoom-container'),
 		enableDesktop: false,
-		enableGestureRotate: true,
+		enableGestureRotate: false,
 		dbclickZoomThreshold: 0.1,
 		maxZoom: 3,
 		minZoom: 0.1,
