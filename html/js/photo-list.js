@@ -1,4 +1,6 @@
 $(function() {
+	urlAttr();
+
 	showModal();
 	uploader = getQnUp();
 	domBindChg();
@@ -14,6 +16,10 @@ $(function() {
 	});
 
 	zoomage = getZoomage();
+
+	//多图片上传
+	showUpmore();
+	moreup = getQnUpMore();
 });
 /*$(document).on("pageinit", "#pageone", function(){
 	$(document).on("scrollstop", function(){
@@ -48,16 +54,18 @@ function scrollOver() {
 	return getHeightDom() - getHeightWin() - getScrollTop();
 }
 
-function nextPage() {
-	addingFlag = true;
-	var offset = parseInt($('#image-offset').text());
+function urlAttr() {
 	var regRet = window.location.search.match(/suffix=([^&]+)/);
-	var suffix = regRet[1];
-	var user = "";
+	suffix = regRet[1];
+	user = "";
 	regRet = window.location.search.match(/user=([^&]+)/);
 	if (null != regRet) {
 		user = regRet[1];
 	}
+}
+function nextPage() {
+	addingFlag = true;
+	var offset = parseInt($('#image-offset').text());
 	$.ajax({
 		url: '/photo/msg/photo-page',
 		contentType: 'application/json',
@@ -123,4 +131,94 @@ function miniImage() {
 	$('#zoom-container').addClass('hidden');
 	$('#image-table').removeClass('hidden');
 	zoomage.load('');
+}
+function getQnUpMore() {
+	return Qiniu.uploader({
+		runtimes: 'html5',
+		browse_button: 'add-more-image',
+		uptoken_func: function() {
+			$.ajax({
+				url:'/photo/msg/qiniu-token',
+				contentType: 'application/json',
+				data:JSON.stringify({Bucket:'photo'}),
+				type:'post',
+				dataType:'json',
+				async:false,
+				success:function(data) {
+					token = data.Token;
+				}
+			})
+			return token;
+		},
+		unique_names: true,
+		get_new_uptoken: false,
+		domain: 'photo',
+		container: 'more-image-list',
+		max_file_size: '100mb',
+		max_retries: 3,
+		chunk_size: '4mb',
+		multi_selection: true,
+		dragdrop: true,
+		drop_element: 'more-image-list',
+		filters: {
+			mime_types: [
+				{title:"图片文件", extensions:"jpg,png"}
+			]
+		},
+		auto_start: false,
+		init: {
+			'FilesAdded': function(up, files) {
+				plupload.each(files, function(file) {
+					// 文件添加进队列后，处理相关的事情
+					console.log("add file:", file.name);
+					var preloader = new mOxie.Image();
+					preloader.onload = function() {
+						preloader.downsize(300, 300); //压缩下显示 不影响上传
+						var imgsrc = preloader.type=='image/jpeg' ? preloader.getAsDataURL('image/jpeg',80) : preloader.getAsDataURL();
+						$('#upmorePhoto #more-image-list').append('<img src="'+imgsrc+'" />');//prepend <br />
+						preloader.destroy();
+						preloader = null;
+					};
+					preloader.load(file.getSource());
+				});
+			},
+			'FileUploaded': function(up, file, info) {
+				var domain = up.getOption('domain');
+				var res = JSON.parse(info.response);
+				var sourceLink = domain +"/"+ res.key; //上传成功后 域+名
+
+				$.ajax({
+					url: '/photo/msg/photo-save',
+					contentType: 'application/json',
+					data: JSON.stringify({Id: '0', Suffix: suffix, Image: sourceLink}),
+					type: 'post',
+					dataType: 'json',
+					success:function(data) {
+						if (data.Result)
+							console.log('up success');
+							// window.location.reload();
+					},
+					error:function(jqXHR, textStatus, errorThrown) {
+						alert(jqXHR.responseJSON.ErrMsg);
+					}
+				});
+			},
+			'UploadComplete': function() {
+				alert('up all finish.');
+				window.location.reload();
+			},
+			'Error': function(up, err, errTip) {
+				//上传出错时，处理相关的事情
+			}
+		}
+	});
+}
+function showUpmore() {
+	$('#upmorePhoto').on('show.bs.modal', function (event) {
+		var modal = $(this);
+		modal.find('.modal-body .btn-primary').attr('onclick', "moreImageUp()");
+	});
+}
+function moreImageUp() {
+	moreup.start();
 }

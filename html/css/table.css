@@ -4,3 +4,8 @@
 #image-table td {
 	text-align: center;
 }
+#more-image-list {
+	width: 300px;
+	height: 400px;
+	overflow: scroll;
+}

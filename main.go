@@ -148,6 +148,7 @@ func photoPreviewHandler(w http.ResponseWriter, r *http.Request) {
 	paths := []string{
 		filepath.Join(htmlPath, "photo", "html", "photo-list.html"),
 		filepath.Join(htmlPath, "photo", "html", "modal", "edit-photo.tmpl"),
+		filepath.Join(htmlPath, "photo", "html", "modal", "upmore-photo.tmpl"),
 	}
 	if t, err := template.ParseFiles(paths...); err != nil {
 		flog.LogFile.Println(err)

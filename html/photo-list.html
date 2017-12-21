@@ -15,6 +15,8 @@
 	<nav class="navbar navbar-default">
 		<button type="button" class="btn btn-default navbar-btn"
 			data-toggle="modal" data-target="#editPhoto" data-photo-id="0">添加照片</button>
+		<button type="button" class="btn btn-default navbar-btn"
+			data-toggle="modal" data-target="#upmorePhoto" data-photo-id="0">多照片UP</button>
 		<!-- <span id="dom-height"></span>;<span id="win-height"></span>;<span id="scroll-top"></span> -->
 	</nav>
 	{{end}}
@@ -28,6 +30,9 @@
 
 	<div class="modal fade" id="editPhoto" tabindex="-1" role="dialog" aria-labelledby="editPhotoLabel">
 		{{template "edit-photo"}}
+	</div>
+	<div class="modal fade" id="upmorePhoto" tabindex="-1" role="dialog" aria-labelledby="upmorePhotoLabel">
+		{{template "upmore-photo"}}
 	</div>
 
 	<script src="/js/jquery-3.2.1.min.js"></script>
