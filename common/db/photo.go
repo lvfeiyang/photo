@@ -75,3 +75,22 @@ func DelRepeatPhoto() error {
 	}
 	return nil
 }
+func FindNoMapFiles() ([]string, error) {
+	var noMapFiles []string
+	bucket := "photo"
+	if files, err := qiniu.GetAllFile(bucket); err != nil {
+		return noMapFiles, err
+	} else {
+		pt := &Photo{}
+		for _, file := range files {
+			if err := db.FindOne(photoCName, bson.M{"image": bucket + "/" + file}, pt); err != nil {
+				if "not found" == err.Error() {
+					noMapFiles = append(noMapFiles, file)
+				} else {
+					return noMapFiles, err
+				}
+			}
+		}
+	}
+	return noMapFiles, nil
+}

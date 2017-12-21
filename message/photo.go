@@ -186,3 +186,33 @@ func (req *PhotoDelRepeatReq) Handle(sess *session.Session) ([]byte, error) {
 		return rspJ, nil
 	}
 }
+
+type PhotoNoMapReq struct {
+	Id string
+}
+type PhotoNoMapRsp struct {
+	Files []string
+}
+
+func (req *PhotoNoMapReq) GetName() (string, string) {
+	return "photo-no-map-req", "photo-no-map-rsp"
+}
+func (req *PhotoNoMapReq) Decode(msgData []byte) error {
+	return json.Unmarshal(msgData, req)
+}
+func (rsp *PhotoNoMapRsp) Encode() ([]byte, error) {
+	return json.Marshal(rsp)
+}
+func (req *PhotoNoMapReq) Handle(sess *session.Session) ([]byte, error) {
+	noMapFiles, err := db.FindNoMapFiles()
+	if err != nil {
+		return nil, err
+	}
+
+	rsp := &PhotoNoMapRsp{noMapFiles}
+	if rspJ, err := rsp.Encode(); err != nil {
+		return nil, err
+	} else {
+		return rspJ, nil
+	}
+}

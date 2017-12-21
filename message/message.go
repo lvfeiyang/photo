@@ -15,6 +15,7 @@ func Init() {
 		"photo-save-req":       &PhotoSaveReq{},
 		"photo-page-req":       &PhotoPageReq{},
 		"photo-del-repeat-req": &PhotoDelRepeatReq{},
+		"photo-no-map-req":     &PhotoNoMapReq{},
 	}
 	return
 }

@@ -64,3 +64,19 @@ function delRepeat() {
 		}
 	});
 }
+function noMapFiles() {
+	$.ajax({
+		url: '/photo/msg/photo-no-map',
+		contentType: 'application/json',
+		data: JSON.stringify({Id:""}),
+		type: 'post',
+		dataType: 'json',
+		success: function(data) {
+			var filesStr = "";
+			for (var i in data.Files) {
+				filesStr += data.Files[i] + "\n";
+			}
+			alert(filesStr);
+		}
+	});
+}
