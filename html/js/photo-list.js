@@ -12,6 +12,8 @@ $(function() {
 			nextPage();
 		}
 	});
+
+	zoomage = getZoomage();
 });
 /*$(document).on("pageinit", "#pageone", function(){
 	$(document).on("scrollstop", function(){
@@ -69,7 +71,7 @@ function nextPage() {
 				if (0 == i % 3) {
 					addHtml += '<tr>';
 				}
-				addHtml += '<td><img src="'+v.Image+'?imageView2/0/w/120/h/120" />';
+				addHtml += '<td><img src="'+v.Image+'?imageView2/0/w/120/h/120" onclick="zoomImage(\''+v.Image+'\')"/>';
 				if ("admin" == user) {
 					addHtml += '<br /><button class="btn btn-default btn-xs" type="button" '+
 						'data-toggle="modal" data-target="#editPhoto" data-photo-id='+v.Id+'>修改</button>';
@@ -92,4 +94,33 @@ function nextPage() {
 			addingFlag = false;
 		}
 	});
+}
+function getZoomage() {
+	return new Zoomage({
+		container: document.getElementById('zoom-container'),
+		enableDesktop: false,
+		enableGestureRotate: true,
+		dbclickZoomThreshold: 0.1,
+		maxZoom: 3,
+		minZoom: 0.1,
+		// onDrag: function(data) {data.x data.y},
+		onZoom: function(data) {
+			// data.scale.width data.scale.height
+			// console.log(data.zoom); $('#show-zoom').text(data.zoom);
+			if (0.1 > data.zoom) {
+				miniImage();
+			}
+		},
+		// onRotate: function(data) {data.rotate},
+	});
+}
+function zoomImage(imgUrl) {
+	$('#image-table').addClass('hidden');
+	$('#zoom-container').removeClass('hidden');
+	zoomage.load(imgUrl+'?imageView2/2/w/1000/h/2500');
+}
+function miniImage() {
+	$('#zoom-container').addClass('hidden');
+	$('#image-table').removeClass('hidden');
+	zoomage.load('');
 }
