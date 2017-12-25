@@ -21,6 +21,7 @@
 				<th>名称</th>
 				<th>后缀</th>
 				<th>描述</th>
+				<th>操作</th>
 			</tr>
 		</thead>
 		<tbody>
@@ -29,6 +30,12 @@
 				<td ondblclick="showInput({{.Id}}, 1)">{{.Name}}</td>
 				<td ondblclick="showInput({{.Id}}, 2)">{{.Suffix}}</td>
 				<td ondblclick="showInput({{.Id}}, 3)">{{.Desc}}</td>
+				<td>
+					<a href="/photo/detail?suffix={{.Suffix}}"><span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span></a>
+					<a href="/photo/preview?suffix={{.Suffix}}&user=admin" target="_blank">
+						<span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
+					</a>
+				</td>
 			</tr>
 			{{end}}
 		</tbody>
