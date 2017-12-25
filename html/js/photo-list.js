@@ -175,7 +175,7 @@ function getQnUpMore() {
 					preloader.onload = function() {
 						preloader.downsize(300, 300); //压缩下显示 不影响上传
 						var imgsrc = preloader.type=='image/jpeg' ? preloader.getAsDataURL('image/jpeg',80) : preloader.getAsDataURL();
-						$('#upmorePhoto #more-image-list').append('<img id="'+file.id+'" src="'+imgsrc+'" />');//prepend <br />  onclick="moreup.removeFile(\''+file.id+'\')"
+						$('#upmorePhoto #more-image-list').append('<img id="'+file.id+'" src="'+imgsrc+'" onclick="delPreviewImg(\''+file.id+'\')" />');//prepend <br />  onclick="moreup.removeFile(\''+file.id+'\')"
 						// $('#upmorePhoto #more-image-list #'+file.id).click(function(){up.removeFile($(this).attr('id'));});
 						preloader.destroy();
 						preloader = null;
@@ -222,4 +222,8 @@ function showUpmore() {
 }
 function moreImageUp() {
 	moreup.start();
+}
+function delPreviewImg(fileId) {
+	moreup.removeFile(fileId);
+	$('#upmorePhoto #more-image-list #'+fileId).remove();
 }
